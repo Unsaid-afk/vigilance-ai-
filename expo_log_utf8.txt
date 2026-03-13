@@ -1,0 +1,24 @@
+﻿Starting project at C:\Users\aarya\Desktop\work\EP_PROJECT\EP_PROJECT\VigilanceAI
+ΓÇ║ Port 8081 is being used by another process
+node.exe : Input is 
+required, but 'npx expo' is 
+in non-interactive mode.
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" "C:\Us
+ers\aarya\AppData\Roaming\ 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (Input i  
+  s requir...teractive mod   
+ e.:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+Required input:
+> Use port 8082 instead?
+ΓÇ║ Skipping dev server

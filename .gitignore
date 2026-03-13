@@ -39,3 +39,9 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# logs
+*.log
+*_log.txt
+fresh_expo.log
+fresh_expo_utf8.log
