@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import SafeStorage from '../utils/SafeStorage';
-import { useRouter, useRootNavigationState } from 'expo-router';
+import { useRouter, useRootNavigationState, useSegments } from 'expo-router';
 import { Colors } from '../constants/Colors';
 
 export default function RootLayout() {
     const router = useRouter();
     const rootNavigationState = useRootNavigationState();
+    const segments = useSegments();
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
@@ -22,13 +23,23 @@ export default function RootLayout() {
                 if (resolved) return;
                 resolved = true;
                 setIsReady(true);
-                if (val === 'true') {
+
+                const isLoggedIn = val === 'true';
+                const inAuthGroup = segments[0] === '(tabs)' || segments[0] === 'drive-mode';
+
+                if (!isLoggedIn && (segments[0] === '(tabs)' || segments[0] === 'drive-mode')) {
+                    // Redirect to login if not logged in but trying to access protected pages
+                    router.replace('/login');
+                } else if (isLoggedIn && segments[0] === 'login') {
+                    // Redirect to dashboard if already logged in but visiting login page
                     router.replace('/(tabs)');
-                } else {
+                } else if (!isLoggedIn && !segments[0]) {
+                    // Default to login on fresh start if no route and not logged in
                     router.replace('/login');
                 }
+                // If already logged in and on a valid route (like /monitor), stay there!
             })
-            .catch(err => {
+            .catch(() => {
                 if (resolved) return;
                 resolved = true;
                 setIsReady(true);
@@ -39,11 +50,12 @@ export default function RootLayout() {
             if (!resolved) {
                 resolved = true;
                 setIsReady(true);
-                router.replace('/login');
+                // Fallback only if no route is matching
+                if (!segments[0]) router.replace('/login');
             }
-        }, 1500);
+        }, 2000);
 
-    }, [rootNavigationState?.key]);
+    }, [rootNavigationState?.key, segments]);
 
     if (!rootNavigationState?.key || !isReady) {
         return (

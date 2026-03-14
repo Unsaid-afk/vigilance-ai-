@@ -1,5 +1,4 @@
-import React from 'react';
-import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
 import { Colors } from '../../constants/Colors';
 import { Typography, Spacing, Radii } from '../../constants/typography';
 
@@ -10,10 +9,11 @@ interface StatCardProps {
     accentColor?: string;
     icon?: React.ReactNode;
     style?: ViewStyle;
+    onPress?: () => void;
 }
 
-export function StatCard({ title, value, subtitle, accentColor = Colors.blue, icon, style }: StatCardProps) {
-    return (
+export function StatCard({ title, value, subtitle, accentColor = Colors.blue, icon, style, onPress }: StatCardProps) {
+    const CardContent = (
         <View style={[styles.card, style]}>
             {/* Top accent line */}
             <View style={[styles.accentBar, { backgroundColor: accentColor }]} />
@@ -34,6 +34,16 @@ export function StatCard({ title, value, subtitle, accentColor = Colors.blue, ic
             )}
         </View>
     );
+
+    if (onPress) {
+        return (
+            <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={style}>
+                {CardContent}
+            </TouchableOpacity>
+        );
+    }
+
+    return CardContent;
 }
 
 const styles = StyleSheet.create({

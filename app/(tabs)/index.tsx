@@ -121,6 +121,7 @@ export default function DashboardTab() {
                             accentColor={Colors.amber}
                             icon={<Text>⚠️</Text>}
                             style={styles.statHalf}
+                            onPress={() => router.navigate('/history')}
                         />
                         <StatCard
                             title="Avg EAR"
@@ -129,6 +130,7 @@ export default function DashboardTab() {
                             accentColor={Colors.blue}
                             icon={<Text>👁</Text>}
                             style={styles.statHalf}
+                            onPress={() => router.navigate('/monitor')}
                         />
                     </View>
                     <View style={styles.statsRow}>
@@ -139,6 +141,7 @@ export default function DashboardTab() {
                             accentColor={Colors.purple}
                             icon={<Text>😴</Text>}
                             style={styles.statHalf}
+                            onPress={() => router.navigate('/history')}
                         />
                         <StatCard
                             title="Drive Hours"
@@ -147,6 +150,7 @@ export default function DashboardTab() {
                             accentColor={Colors.emerald}
                             icon={<Text>🕐</Text>}
                             style={styles.statHalf}
+                            onPress={() => router.navigate('/history')}
                         />
                     </View>
                 </View>
@@ -210,7 +214,7 @@ export default function DashboardTab() {
                 {/* ── QUICK ACTION ── */}
                 <TouchableOpacity
                     style={styles.startBtn}
-                    onPress={() => router.push('/monitor')}
+                    onPress={() => router.navigate('/monitor')}
                     activeOpacity={0.85}
                 >
                     <Text style={styles.startBtnText}>🎥  Start Live Monitoring</Text>
